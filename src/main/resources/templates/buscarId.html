@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=43649&format=png&color=000000"
+        type="image/x-icon">
+
+    <title>Buscar Productos Po ID: </title>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <h1 style="text-align: center; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+                Gestión de Productos</h1>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link " th:href="@{/productos}">Listado de Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/productos/nuevo}">Nuevo Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/productos/buscar}">Buscar Producto</a>
+                </li>
+            </ul>
+        </nav>
+        <h1 style="width: auto; text-align: center;">Buscar Productos por ID</h1>
+        <form th:action="@{/productos/buscarId}" method="post"
+            class="form-inline style=display: flex; flex-direction: column; align-items: center; margin-top: 20px; "
+            style="justify-content: center; text-align: center;">
+            <div class="form-group mr-2" style="width: 50%;">
+                <label for="id" class="form-label" style="text-align: center; margin: 20px;">ID del Producto: </label>
+                <input type="number" class="form-control" style="padding: 15px; margin-right: 10px;"
+                    placeholder="ID del Producto" id="id" name="id" required />
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <div th:if="${producto}" class="result-container" style="margin-top: 20px; text-align: center;">
+            <h2 style="text-align: center;">Producto Encontrado:</h2>
+            <p style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; margin-bottom: 10px;">ID: <span
+                    th:text="${producto.id}"></span></p>
+            <p style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; margin-bottom: 10px;">Nombre: <span
+                    th:text="${producto.nombre}"></span></p>
+            <p style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; margin-bottom: 10px;">Precio: <span
+                    th:text="${producto.precio}"></span></p>
+            <p style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; margin-bottom: 10px;">Stock: <span
+                    th:text="${producto.stock}"></span></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
