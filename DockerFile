@@ -1,0 +1,38 @@
+# Etapa 1: Compilación (Build)
+# Usamos una imagen con el JDK completo para compilar la aplicación.
+# Basado en tu pom.xml, necesitas Java 21.
+FROM eclipse-temurin:21-jdk-jammy AS builder
+
+# Establecemos el directorio de trabajo dentro del contenedor.
+WORKDIR /app
+
+# Copiamos los archivos necesarios para descargar las dependencias.
+# Esto aprovecha el caché de capas de Docker. Si no cambian, no se vuelven a descargar.
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+
+# Descargamos todas las dependencias del proyecto.
+RUN ./mvnw dependency:go-offline
+
+# Copiamos el resto del código fuente de la aplicación.
+COPY src ./src
+
+# Compilamos y empaquetamos la aplicación en un archivo .jar, omitiendo los tests.
+RUN ./mvnw package -DskipTests
+
+# Etapa 2: Ejecución (Run)
+# Usamos una imagen más ligera solo con el JRE, ya que no necesitamos el JDK para ejecutar.
+FROM eclipse-temurin:21-jre-jammy
+
+WORKDIR /app
+
+# Copiamos el archivo .jar compilado desde la etapa 'builder'.
+COPY --from=builder /app/target/Proyecto-Final-0.0.1-SNAPSHOT.jar app.jar
+
+# Exponemos el puerto 8080, que es donde se ejecuta tu aplicación según application.properties.
+EXPOSE 8080
+
+# El comando que se ejecutará cuando el contenedor se inicie.
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
