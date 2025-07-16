@@ -33,7 +33,6 @@ public class Controllers {
         Producto producto = new Producto();
         model.addAttribute("producto", producto);
         return "form";
-
     }
 
     @PostMapping("/productos/guardar")
@@ -46,7 +45,6 @@ public class Controllers {
     public String FormEditarProducto(@PathVariable Long id, Model model) {
         model.addAttribute("producto", productoService.obtenerProductoPorId(id));
         return "editar";
-
     }
 
     @PostMapping("/productos/nuevo/{id}")
