@@ -36,3 +36,4 @@ EXPOSE 8080
 # El comando que se ejecutará cuando el contenedor se inicie.
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
+
