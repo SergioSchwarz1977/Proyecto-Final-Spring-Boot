@@ -1,11 +1,8 @@
 package com.techlab.Proyecto.Final.controllers;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import com.techlab.Proyecto.Final.entity.Producto;
 import com.techlab.Proyecto.Final.service.ProductoService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,10 +64,11 @@ public class Controllers {
             model.addAttribute("nombre", product.getNombre());
             model.addAttribute("precio", product.getPrecio());
             model.addAttribute("stock", product.getStock());
-        } else {    
-            model.addAttribute("error", "Producto no encontrado con ID: " + id);
-        }
-        return "buscarId";
+            return "buscarId";
+        }    
+        model.addAttribute("error", "Producto no encontrado con ID: " + id);
+        return "buscarId";        
+      
     }
 
     @GetMapping("productos/buscarId")

@@ -39,6 +39,9 @@
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
         </form>
+        <div th:if="${error}" class="alert alert-danger" style="margin-top: 20px; text-align: center;">
+            <span th:text="${error}"></span>
+        </div>
 
         <div th:if="${producto}" class="result-container" style="margin-top: 20px; text-align: center;">
             <h2 style="text-align: center;">Producto Encontrado:</h2>
