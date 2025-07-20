@@ -18,6 +18,11 @@ public class Controllers {
     public Controllers(ProductoService productoService) {
         this.productoService = productoService;
     }
+    //crear una pagina de inicio, con una imagen y el nav para redireccionar a las diferentes vistas
+    @GetMapping("/")
+    public String inicio() {
+        return "index";
+    }   
 
     @GetMapping("/productos")
     public String listarProducto(Model model) {
